@@ -8,6 +8,16 @@
 from itemadapter import ItemAdapter
 
 
-class MoviesPipeline:
+class Title_Cleaner:
     def process_item(self, item, spider):
+        if "title" in item.fields and item["title"]:
+            item["title"] = item["title"].strip()
+
+        return item
+
+
+class Audience_Score_Cleaner:
+    def process_item(self, item, spider):
+        if "audience_rating" in item.fields and not item["audience_rating"]:
+            item["audience_rating"] == None
         return item

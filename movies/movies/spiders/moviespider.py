@@ -49,14 +49,15 @@ class HomeMovieSpider(scrapy.Spider):
                 critic_rating=critics_score.strip() if critics_score else None,
             )
 
-        page_number = 2  # Assuming the initial page is 1
-        load_more_url = (
-            f"https://www.rottentomatoes.com/browse/movies_at_home?page={page_number}"
-        )
-        yield scrapy.Request(load_more_url, callback=self.parse_additional_content)
+        next_page = response.css(".btn.btn-secondary.next-page::attr(href)").get()
+        if next_page:
+            yield response.follow(next_page, callback=self.parse_additional_content)
+        
 
     def parse_additional_content(self, response):
-        # Parse additional movie items loaded after clicking "Load more"
+        '''
+        Here is our callback function as long as there are more pages available to load
+        '''
         movies = response.css("tile-dynamic")
         for movie in movies:
 
