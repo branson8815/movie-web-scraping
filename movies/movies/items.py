@@ -12,3 +12,6 @@ class MoviesItem(scrapy.Item):
     title = scrapy.Field()
     audience_rating = scrapy.Field()
     critic_rating = scrapy.Field()
+    genre = scrapy.Field()
+    runtime = scrapy.Field()
+    release_date = scrapy.Field()

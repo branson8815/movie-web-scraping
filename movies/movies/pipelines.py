@@ -21,3 +21,12 @@ class Audience_Score_Cleaner:
         if "audience_rating" in item.fields and not item["audience_rating"]:
             item["audience_rating"] == None
         return item
+
+
+class Genre_Cleaner:
+    def process_item(self, item, spider):
+        item["genre"] = item["genre"].replace(" ", "")
+        item["genre"] = item["genre"].replace("\n", " ")
+
+        item["genre"] = item["genre"].strip()
+        return item
